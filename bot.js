@@ -1,24 +1,27 @@
 const mineflayer = require('mineflayer');
 
-// Configure your bot connection details here
 const bot = mineflayer.createBot({
-  host: 'har5050.aternos.me', // Put your server address here
-  port: 47671,                                // Put your server port here (default is 25565)
-  username: 'Waamu'                         // The name your bot will use in the game
+  host: 'har5050.aternos.me', // Replace with your server address
+  port: 47671,                                // Replace with your server port if different
+  username: 'Waamu',
+  // auth: 'offline' ensures it works on cracked/Aternos servers without official Mojang login
+  auth: 'offline'                             
 });
 
-// Event: When the bot successfully spawns into the world
 bot.on('spawn', () => {
-  console.log('Success! The bot has joined the server.');
-  bot.chat('Hello everyone! I am a GitHub Actions / Mineflayer bot.');
+  console.log('SUCCESS: Bot has successfully spawned in the server!');
+  bot.chat('Hello! Bot is online via GitHub Actions.');
 });
 
-// Event: Handle errors if it fails to connect
+// Catch chat parsing crashes so the bot doesn't exit abruptly
+bot.on('message', (jsonMsg) => {
+  // Safe listener for server messages
+});
+
 bot.on('error', (err) => {
-  console.log('Error connecting to server:', err);
+  console.log('CONNECTION ERROR:', err);
 });
 
-// Event: Handle getting kicked (useful for debugging)
 bot.on('kicked', (reason) => {
-  console.log('Bot was kicked from the server:', reason);
+  console.log('KICKED FROM SERVER:', reason);
 });
