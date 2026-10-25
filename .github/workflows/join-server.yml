@@ -1,0 +1,23 @@
+name: Run Minecraft Bot
+
+on:
+  workflow_dispatch: # Allows you to manually trigger this bot run anytime from the Actions tab
+
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Mineflayer Dependency
+        run: npm install mineflayer
+
+      - name: Run Bot Script
+        run: node bot.js
